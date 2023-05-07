@@ -1,9 +1,3 @@
----
-title: "Consegna 3"
-author: "Andrea Di Antonio, 858798"
-version: 1
----
-
 # Metodi di Analisi Applicata, 858798_3
 
 Confronto della soluzione numerica per due problemi di conservazione tramite flussi
