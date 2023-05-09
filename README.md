@@ -4,10 +4,13 @@
 
 Codici per le consegne del corso **Metodi di Analisi Applicata**[^1].
 
-[^1]: Per facilitare la lettura dei codici ho deciso di usare [**black**](https://github.com/psf/black)
+[^1]: Per facilitare la lettura dei codici ho deciso di usare [**black**](https://github.com/psf/black).
 
 ## Consegne presenti
 
 - [Consegna 1](./858798_1.py)
 - [Consegna 2](./858798_2.py)
 - [Consegna 3](./858798_3/858798_3.py)
+	- [Descrizione](./858798_3/README.md)[^2]
+
+[^2]: Descrizione non presente all'interno del file del codice sorgente.
