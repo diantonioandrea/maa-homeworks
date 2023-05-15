@@ -2,7 +2,7 @@
 
 Andrea Di Antonio, 858798.
 
-Time taken for section 1's 10 test(s): 47.59 second(s).
+Time taken for section 1's 10 test(s): 83.5 second(s).
 
 Section 1, first test results:
 
@@ -34,7 +34,7 @@ Space	Time	Lax-Friedrichs	Godunov
 5160	20642	4.4986e-01	3.2452e-02
 8192	32768	3.1037e-01	2.2001e-02
 
-Time taken for section 2's test: 31.54 second(s)
+Time taken for section 2's test: 57.98 second(s)
 
 Section 2, some first test results:
 
@@ -71,4 +71,4 @@ Time	Analytical 2	Lax-Friedrichs	Godunov
 
 Final results have been plotted.
 
-Time taken: 79.25 second(s).
+Time taken: 141.89 second(s).

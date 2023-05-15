@@ -110,9 +110,9 @@ maxDerivative = 1
 # Analytical functions.
 def analytical_1(t: float, x: float) -> float:
     gamma = lambda t: t - 2 * np.sqrt(-bar_x * t)
-    return 1.0 * (x >= bar_x) * (x <= -t) + 0.5 * (1 - x / t) * (x >= gamma(t)) * (
-        x <= t
-    ) * (t >= -bar_x)
+    return (1.0 * (x >= bar_x) * (x <= -t) + 0.5 * (1 - x / t) * (abs(x) <= t)) * (
+        t <= -bar_x
+    ) + (0.5 * (1 - x / t) * (x >= gamma(t)) * (x <= t)) * (t >= -bar_x)
 
 
 def analytical_2(t: float, x: float) -> float:
