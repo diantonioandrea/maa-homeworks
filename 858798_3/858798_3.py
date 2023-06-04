@@ -2,7 +2,7 @@
 Metodi di Analisi Applicata.
 Andrea Di Antonio, 858798.
 Consegna 3.
-Versione 1.
+Versione 2.
 
 Per la descrizione del codice si veda il file README.md
 """
