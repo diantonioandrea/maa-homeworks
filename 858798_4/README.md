@@ -34,7 +34,7 @@ Test eseguito su CPU Apple M2.
 
 ### Output testuale
 
-[Output testuale](./858798_4_output.txt) con impostazioni di esempio.
+[Output testuale](./858798_4_output.txt) ridotto con impostazioni di esempio.
 
 ```
 Andrea Di Antonio, 858798.
