@@ -12,5 +12,7 @@ Codici per le consegne del corso **Metodi di Analisi Applicata**[^1].
 - [Consegna 2](./858798_2.py)
 - [Consegna 3](./858798_3/858798_3.py)
 	- [Descrizione](./858798_3/README.md)[^2]
+- [Consegna 4](./858798_4/858798_4.py)
+	- [Descrizione](./858798_4/README.md)[^2]
 
 [^2]: Descrizione non presente all'interno del file del codice sorgente.

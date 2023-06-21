@@ -1,0 +1,48 @@
+Andrea Di Antonio, 858798.
+
+Numerical solution [400/10000 - 0.35s]
+Numerical solution [800/10000 - 0.35s]
+Numerical solution [1200/10000 - 0.35s]
+Numerical solution [1600/10000 - 0.35s]
+Numerical solution [2000/10000 - 0.35s]
+Numerical solution [2400/10000 - 0.35s]
+Numerical solution [2800/10000 - 0.35s]
+Numerical solution [3200/10000 - 0.35s]
+Numerical solution [3600/10000 - 0.35s]
+Numerical solution [4000/10000 - 0.35s]
+Numerical solution [4400/10000 - 0.35s]
+Numerical solution [4800/10000 - 0.35s]
+Numerical solution [5200/10000 - 0.35s]
+Numerical solution [5600/10000 - 0.35s]
+Numerical solution [6000/10000 - 0.35s]
+Numerical solution [6400/10000 - 0.35s]
+Numerical solution [6800/10000 - 0.35s]
+Numerical solution [7200/10000 - 0.35s]
+Numerical solution [7600/10000 - 0.37s]
+Numerical solution [8000/10000 - 0.40s]
+Numerical solution [8400/10000 - 0.37s]
+Numerical solution [8800/10000 - 0.35s]
+Numerical solution [9200/10000 - 0.35s]
+Numerical solution [9600/10000 - 0.35s]
+
+Parameters.
+
+	Time steps: 10000
+	Space steps: 1000
+
+Roads.
+
+	I1: [0, 2]
+	I2: [2, 3]
+	I3: [2, 4]
+	I4: [3, 4]
+	I5: [3, 6]
+	I6: [4, 6]
+
+Intersections.
+
+	J1: [I1] -> [I2, I3] [0.50]
+	J2: [I2] -> [I4, I5] [0.40]
+	J3: [I3, I4] -> [I6] [0.60]
+
+Time taken: 8.88s
