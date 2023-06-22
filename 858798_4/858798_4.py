@@ -6,7 +6,14 @@ Versione 1.
 
 Per la descrizione del codice si veda il file README.md
 
-Chiamare il programma con 'python 858798_4.py save' per salvare l'output grafico.
+Chiamare il programma con 'python 858798_4.py save' per salvare 
+automaticamente l'output animato in una GIF.
+
+Impostazioni da riga di comando:
+
+- short: ignora l'output animato.
+- long: aumenta la precisione del test.
+- save: salva in una GIF l'output animato.
 """
 
 print("Andrea Di Antonio, 858798.\n")
@@ -138,15 +145,19 @@ class intersection:
     def getBoundaries(self) -> tuple[float]:
         if self.family == "1x2":
             # Densities on the roads.
+            # Inbound.
             road_1 = self.inbound[0]
             sol_1 = road_1.solution
 
+            # Outbound.
             road_2 = self.outbound[0]
             road_3 = self.outbound[1]
             sol_2 = road_2.solution
             sol_3 = road_3.solution
 
             # Evaluates "gamma_max_j" for every road.
+            # Note that the algorithm still uses the name gm_j even though
+            # it may not be the maximum value anymore.
             gm_1 = flux(sigma) if sol_1[-1] >= sigma else flux(sol_1[-1])
 
             gm_2 = flux(sigma) if sol_2[0] <= sigma else flux(sol_2[0])
@@ -168,11 +179,13 @@ class intersection:
 
         elif self.family == "2x1":
             # Densities on the roads.
+            # Inbound.
             road_1 = self.inbound[0]
             road_2 = self.inbound[1]
             sol_1 = road_1.solution
             sol_2 = road_2.solution
 
+            # Outbound.
             road_3 = self.outbound[0]
             sol_3 = road_3.solution
 
@@ -367,8 +380,35 @@ solution, time = networkSolver(roads, intersections, [0, 5])
 stop = timer() - start
 
 
-# PLOTTING
+# TEXT OUTPUT.
 
+
+# Parameters.
+print("\nParameters.\n")
+print("\tTime steps: {}".format(tSteps))
+print("\tSpace steps: {}".format(sSteps))
+
+# Roads.
+print("\nRoads.\n")
+for rd in roads:
+    print("\t{}: {}".format(rd, rd.span))
+
+# Intersections.
+print("\nIntersections.\n")
+for inter in intersections:
+    print("\t{}".format(inter))
+
+# Time taken for the numerical solution.
+print("\nTime taken: {:.2f}s".format((stop)))
+
+
+# GRAPHICAL OUTPUT
+
+
+# The code which follows is designed to work with 6 roads, due to the homework requests,
+# although the algorithm itself can accept an arbitrary number of roads and intersections.
+if len(roads) != 6 or "short" in sys.argv:
+    sys.exit(0)
 
 fig, ax = plt.subplots(2, 3)
 plots = [None] * 6
@@ -393,24 +433,6 @@ for k in range(2):
         # Plot limits.
         ax[k, h].set_xlim(roads[j].span[0] - 0.1, roads[j].span[1] + 0.1)
         ax[k, h].set_ylim(-0.1, 1.1)
-
-# Parameters.
-print("\nParameters.\n")
-print("\tTime steps: {}".format(tSteps))
-print("\tSpace steps: {}".format(sSteps))
-
-# Roads.
-print("\nRoads.\n")
-for rd in roads:
-    print("\t{}: {}".format(rd, rd.span))
-
-# Intersections.
-print("\nIntersections.\n")
-for inter in intersections:
-    print("\t{}".format(inter))
-
-# Time taken for the numerical solution.
-print("\nTime taken: {:.2f}s".format((stop)))
 
 # Generates the animation.
 ani = animation.FuncAnimation(
