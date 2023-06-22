@@ -1,8 +1,8 @@
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)[^1]
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 # Metodi di Analisi Applicata
 
-Codici per le consegne per l'esame del corso [**Metodi di Analisi Applicata**](https://elearning.unimib.it/course/info.php?id=44785).
+Codici[^1] per le consegne per l'esame del corso [**Metodi di Analisi Applicata**](https://elearning.unimib.it/course/info.php?id=44785).
 
 [^1]: Per facilitare la lettura dei codici ho deciso di usare [**black**](https://github.com/psf/black).
 
