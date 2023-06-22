@@ -384,8 +384,9 @@ for k in range(2):
         # Titles.
         ax[k, h].set_title("Road {}".format(roads[j]))
 
-        # Ticks on x.
-        ax[k, h].set_yticks([])
+        # Removes ticks.
+        if "save" in sys.argv:
+            ax[k, h].set_yticks([])
         ax[k, h].set_xticks(roads[j].span)
 
         # Plot limits.
