@@ -323,6 +323,7 @@ def invParabolicFlux(y: float) -> tuple[float]:
     return 0.5 * (1 - np.sqrt(1 - 4 * y)), 0.5 * (1 + np.sqrt(1 - 4 * y))
 
 
+# THE PROGRAM STARTS HERE.
 # DATA AND SIMULATION
 
 
