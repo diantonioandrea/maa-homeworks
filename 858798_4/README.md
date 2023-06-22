@@ -75,6 +75,8 @@ Time taken: 448.79s
 
 ### Output animato
 
-[Output animato](./858798_4_gif.gif) con impostazioni di esempio.
+[Output animato](./858798_4_gif.gif) con impostazioni di esempio.[^1]
+
+[^1]: Quando salvata, la gif non presenta i tick sull'asse y.
 
 ![Test result](./858798_4_gif.gif)
