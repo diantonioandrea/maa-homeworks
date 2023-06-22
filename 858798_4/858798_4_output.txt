@@ -1,34 +1,34 @@
 Andrea Di Antonio, 858798.
 
-Numerical solution [400/10000 - 0.35s]
-Numerical solution [800/10000 - 0.35s]
-Numerical solution [1200/10000 - 0.35s]
-Numerical solution [1600/10000 - 0.35s]
-Numerical solution [2000/10000 - 0.35s]
-Numerical solution [2400/10000 - 0.35s]
-Numerical solution [2800/10000 - 0.35s]
-Numerical solution [3200/10000 - 0.35s]
-Numerical solution [3600/10000 - 0.35s]
-Numerical solution [4000/10000 - 0.35s]
-Numerical solution [4400/10000 - 0.35s]
-Numerical solution [4800/10000 - 0.35s]
-Numerical solution [5200/10000 - 0.35s]
-Numerical solution [5600/10000 - 0.35s]
-Numerical solution [6000/10000 - 0.35s]
-Numerical solution [6400/10000 - 0.35s]
-Numerical solution [6800/10000 - 0.35s]
-Numerical solution [7200/10000 - 0.35s]
-Numerical solution [7600/10000 - 0.37s]
-Numerical solution [8000/10000 - 0.40s]
-Numerical solution [8400/10000 - 0.37s]
-Numerical solution [8800/10000 - 0.35s]
-Numerical solution [9200/10000 - 0.35s]
-Numerical solution [9600/10000 - 0.35s]
+Numerical solution [4000/100000 - 17.84s]
+Numerical solution [8000/100000 - 17.81s]
+Numerical solution [12000/100000 - 18.27s]
+Numerical solution [16000/100000 - 17.87s]
+Numerical solution [20000/100000 - 17.98s]
+Numerical solution [24000/100000 - 17.93s]
+Numerical solution [28000/100000 - 18.14s]
+Numerical solution [32000/100000 - 17.87s]
+Numerical solution [36000/100000 - 17.88s]
+Numerical solution [40000/100000 - 17.87s]
+Numerical solution [44000/100000 - 17.83s]
+Numerical solution [48000/100000 - 17.84s]
+Numerical solution [52000/100000 - 17.85s]
+Numerical solution [56000/100000 - 17.88s]
+Numerical solution [60000/100000 - 17.99s]
+Numerical solution [64000/100000 - 17.95s]
+Numerical solution [68000/100000 - 17.97s]
+Numerical solution [72000/100000 - 17.89s]
+Numerical solution [76000/100000 - 17.93s]
+Numerical solution [80000/100000 - 18.05s]
+Numerical solution [84000/100000 - 17.87s]
+Numerical solution [88000/100000 - 17.88s]
+Numerical solution [92000/100000 - 17.89s]
+Numerical solution [96000/100000 - 17.87s]
 
 Parameters.
 
-	Time steps: 10000
-	Space steps: 1000
+	Time steps: 100000
+	Space steps: 10000
 
 Roads.
 
@@ -45,4 +45,4 @@ Intersections.
 	J2: [I2] -> [I4, I5] [0.40]
 	J3: [I3, I4] -> [I6] [0.60]
 
-Time taken: 8.88s
+Time taken: 448.06s

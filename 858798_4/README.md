@@ -14,14 +14,14 @@ Rete stradale composta dalle seguenti strade:
 e dai seguenti incroci:
 
 - **J1**: incrocio *1x2*
-	- Strade entranti: **I1**
+	- Strada entrante: **I1**
 	- Strade uscenti: **I2**, **I3**
 - **J2**: incrocio *1x2*
-	- Strade entranti: **I2**
+	- Strada entrante: **I2**
 	- Strade uscenti: **I4**, **I5**
-- **J3**: incrocio *2X1*
+- **J3**: incrocio *2x1*
 	- Strade entranti: **I3**, **I4**
-	- Strade uscenti: **I6**
+	- Strada uscente: **I6**
 
 ## Algoritmo
 
@@ -36,17 +36,21 @@ Test eseguito su CPU Apple M2.
 
 [Output testuale](./858798_4_output.txt) ridotto con impostazioni di esempio.
 
+Riproducibile tramite `python 858798_4.py long`
+
 ```
 Andrea Di Antonio, 858798.
 
-Numerical solution [400/10000 - 0.35s]
+Numerical solution [4000/100000 - 17.84s]
+Numerical solution [8000/100000 - 17.81s]
 ...
-Numerical solution [9600/10000 - 0.35s]
+Numerical solution [92000/100000 - 17.89s]
+Numerical solution [96000/100000 - 17.87s]
 
 Parameters.
 
-	Time steps: 10000
-	Space steps: 1000
+	Time steps: 100000
+	Space steps: 10000
 
 Roads.
 
@@ -63,11 +67,12 @@ Intersections.
 	J2: [I2] -> [I4, I5] [0.40]
 	J3: [I3, I4] -> [I6] [0.60]
 
-Time taken: 8.88s
+Time taken: 448.06s
+
 ```
 
 ### Output grafico
 
-[Output grafico](./858798_4_video.gif) con impostazioni di esempio.
+[Output grafico](./858798_4_gif.gif) con impostazioni di esempio.
 
-![Test result](./858798_4_video.gif)
+![Test result](./858798_4_gif.gif)

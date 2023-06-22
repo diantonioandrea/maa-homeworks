@@ -386,7 +386,7 @@ ani = animation.FuncAnimation(
 # Saves the animation.
 try:
     if "save" in sys.argv:
-        ani.save("858798_4_video.gif", fps=60)
+        ani.save("858798_4_gif.gif", fps=60)
 except:
     pass
 
