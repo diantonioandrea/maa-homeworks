@@ -43,22 +43,29 @@ class road:
         assert isinstance(sSteps, int)
         assert sSteps > 0
 
+        # Road's name.
         self.name = name
 
+        # Road's space span.
         self.span = span
 
+        # Space and solution arrays.
         self.space, self.sStep = np.linspace(span[0], span[1], sSteps, retstep=True)
         self.solution = np.zeros_like(self.space)
 
+        # Extension list.
         self.extension: list[list[float]] = [[], []]
 
+    # Returns the road informations.
     def __repr__(self) -> str:
         return self.name
 
+    # Applies a function to the road.
     def startingCondition(self, func: Callable) -> None:
         self.solution = func(self.space)
 
-    def extend(self) -> np.array:
+    # Returns the road's extended solution arrays.
+    def extend(self) -> tuple[np.array]:
         solution = self.solution.copy()
 
         if not self.extension[0]:
@@ -103,12 +110,15 @@ class intersection:
         assert isinstance(coeff, float)
         assert 0 < coeff < 1
 
+        # Intersection name.
         self.name = name
 
+        # Inbound and Outbound roads.
         self.inbound = inbound
         self.outbound = outbound
 
         # Distribution/priority coefficient.
+        # Distribution on 1x2 and priority on 2x1.
         self.coeff = coeff
 
         # Intersection type.
@@ -118,11 +128,13 @@ class intersection:
         elif len(self.inbound) == 1 and len(self.outbound) == 2:
             self.family = "1x2"
 
+    # Returns intersection's informations.
     def __repr__(self) -> str:
         return "{}: {} -> {} [{:.2f}]".format(
             self.name, self.inbound, self.outbound, self.coeff
         )
 
+    # Returns boundary densities on the intersection based on family..
     def getBoundaries(self) -> tuple[float]:
         if self.family == "1x2":
             # Densities on the roads.
@@ -134,7 +146,7 @@ class intersection:
             sol_2 = road_2.solution
             sol_3 = road_3.solution
 
-            # Evaluates "gamma_max_j" for every road
+            # Evaluates "gamma_max_j" for every road.
             gm_1 = flux(sigma) if sol_1[-1] >= sigma else flux(sol_1[-1])
 
             gm_2 = flux(sigma) if sol_2[0] <= sigma else flux(sol_2[0])
@@ -164,7 +176,7 @@ class intersection:
             road_3 = self.outbound[0]
             sol_3 = road_3.solution
 
-            # Evaluates "gamma_max_j" for every road
+            # Evaluates "gamma_max_j" for every road.
             gm_1 = flux(sigma) if sol_1[-1] >= sigma else flux(sol_1[-1])
             gm_2 = flux(sigma) if sol_2[-1] >= sigma else flux(sol_2[-1])
 
@@ -201,6 +213,7 @@ class intersection:
 # GRAPHICS
 
 
+# Animation function.
 def animate(index: int) -> None:
     plt.suptitle("Solution at time {:.2f}".format(time[index]))
     for j in range(len(roads)):
@@ -225,7 +238,7 @@ def networkSolver(
     # Numerical solution.
     time, tStep = np.linspace(timeRange[0], timeRange[1], tSteps, retstep=True)
     solution = np.zeros((tSteps, sSteps, len(roads)))
-    
+
     # Checks.
     for j in range(len(roads)):
         # CFL on every road.
@@ -250,6 +263,7 @@ def networkSolver(
             # Gets boundaries.
             boundaries = inter.getBoundaries()
 
+            # Sets boundary densities on the extension lists.
             if inter.family == "1x2":
                 inter.inbound[0].extension[1] = [boundaries[0]]
 
@@ -262,7 +276,7 @@ def networkSolver(
 
                 inter.outbound[0].extension[0] = [boundaries[2]]
 
-        # Evolves roads.
+        # Evaluates the numerical solution for every step.
         for k in range(len(roads)):
             # Roads extended accordingly to intersections.
             downSolution, upSolution = roads[k].extend()
@@ -327,12 +341,12 @@ sigma = 0.5
 maxDerivative = 1
 
 # Roads.
-I1 = road("I1", [0, 2])
-I2 = road("I2", [2, 3])
-I3 = road("I3", [2, 4])
-I4 = road("I4", [3, 4])
-I5 = road("I5", [3, 6])
-I6 = road("I6", [4, 6])
+I1 = road("R1", [0, 2])
+I2 = road("R2", [2, 3])
+I3 = road("R3", [2, 4])
+I4 = road("R4", [3, 4])
+I5 = road("R5", [3, 6])
+I6 = road("R6", [4, 6])
 
 # Intersection.
 J1 = intersection("J1", [I1], [I2, I3], 0.5)
@@ -356,9 +370,9 @@ stop = timer() - start
 
 
 fig, ax = plt.subplots(2, 3)
-
 plots = [None] * 6
 
+# Initialize every
 for k in range(2):
     for h in range(3):
         # Road index.
@@ -368,9 +382,10 @@ for k in range(2):
         (plots[j],) = ax[k, h].plot(roads[j].space, solution[0, :, j])
 
         # Titles.
-        ax[k, h].set_title("Road {}".format(j + 1))
+        ax[k, h].set_title("Road {}".format(roads[j]))
 
         # Ticks on x.
+        ax[k, h].set_yticks([])
         ax[k, h].set_xticks(roads[j].span)
 
         # Plot limits.
@@ -395,12 +410,12 @@ for inter in intersections:
 # Time taken for the numerical solution.
 print("\nTime taken: {:.2f}s".format((stop)))
 
-# Computes the animation.
+# Generates the animation.
 ani = animation.FuncAnimation(
     fig, animate, interval=1000 // 60, frames=range(1, tSteps, tSteps // 300)
 )
 
-# Saves the animation if requested.
+# Saves the animation on request.
 try:
     if "save" in sys.argv:
         ani.save("858798_4_gif.gif", fps=60)
