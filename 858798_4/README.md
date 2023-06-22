@@ -28,6 +28,8 @@ e dai seguenti incroci:
 Il codice usa il flusso numerico di Godunov per la valutazione della soluzione numerica su varie strade connesse da incroci.  
 Le condizioni al bordo sono valutate a ogni ciclo temporale e aggiornate.
 
+Gli oggetti che gestiscono gli incroci richiedono che le strade entranti terminino alla stessa cordinata spaziale e lo stesso vale per le strade uscenti.
+
 ## Output di esempio
 
 Test eseguito su CPU Apple M2.
@@ -41,11 +43,11 @@ Riproducibile tramite `python 858798_4.py long`
 ```
 Andrea Di Antonio, 858798.
 
-Numerical solution [4000/100000 - 17.84s]
-Numerical solution [8000/100000 - 17.81s]
+Numerical solution [4000/100000 - 17.83s]
+Numerical solution [8000/100000 - 17.83s]
 ...
-Numerical solution [92000/100000 - 17.89s]
-Numerical solution [96000/100000 - 17.87s]
+Numerical solution [92000/100000 - 17.91s]
+Numerical solution [96000/100000 - 17.89s]
 
 Parameters.
 
@@ -67,8 +69,7 @@ Intersections.
 	J2: [I2] -> [I4, I5] [0.40]
 	J3: [I3, I4] -> [I6] [0.60]
 
-Time taken: 448.06s
-
+Time taken: 447.32s
 ```
 
 ### Output grafico

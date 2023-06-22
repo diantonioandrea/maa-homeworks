@@ -29,6 +29,7 @@ import matplotlib.animation as animation
 
 class road:
     def __init__(self, name: str, span: Iterable[float]) -> None:
+        # Strong assertions on parameters.
         assert isinstance(name, str)
         assert name
 
@@ -79,6 +80,7 @@ class intersection:
     def __init__(
         self, name: str, inbound: list[road], outbound: list[road], coeff: float = 0.5
     ) -> None:
+        # Strong assertions on parameters.
         assert isinstance(name, str)
         assert name
 
@@ -123,6 +125,7 @@ class intersection:
 
     def getBoundaries(self) -> tuple[float]:
         if self.family == "1x2":
+            # Densities on the roads.
             road_1 = self.inbound[0]
             sol_1 = road_1.solution
 
@@ -131,23 +134,28 @@ class intersection:
             sol_2 = road_2.solution
             sol_3 = road_3.solution
 
+            # Evaluates "gamma_max_j" for every road
             gm_1 = flux(sigma) if sol_1[-1] >= sigma else flux(sol_1[-1])
 
             gm_2 = flux(sigma) if sol_2[0] <= sigma else flux(sol_2[0])
             gm_3 = flux(sigma) if sol_3[0] <= sigma else flux(sol_3[0])
 
+            # Preference rule applies.
             alpha = self.coeff
             gm_1 = min({gm_1, gm_2 / alpha, gm_3 / (1 - alpha)})
 
+            # Conservation costraint.
             gm_2 = alpha * gm_1
             gm_3 = (1 - alpha) * gm_1
 
             # Boundary densities.
+            # Takes the compatible boundary density.
             sol_1_b = invFlux(gm_1)[1]
             sol_2_b = invFlux(gm_2)[0]
             sol_3_b = invFlux(gm_3)[0]
 
         elif self.family == "2x1":
+            # Densities on the roads.
             road_1 = self.inbound[0]
             road_2 = self.inbound[1]
             sol_1 = road_1.solution
@@ -156,12 +164,14 @@ class intersection:
             road_3 = self.outbound[0]
             sol_3 = road_3.solution
 
+            # Evaluates "gamma_max_j" for every road
             gm_1 = flux(sigma) if sol_1[-1] >= sigma else flux(sol_1[-1])
             gm_2 = flux(sigma) if sol_2[-1] >= sigma else flux(sol_2[-1])
 
             gm_3 = flux(sigma) if sol_3[0] <= sigma else flux(sol_3[0])
 
-            if gm_1 + gm_2 > gm_3:  # Priority rules apply which redefine gm_1 and gm_2.
+            # Checks whether priority rules apply which redefine gm_1 and gm_2.
+            if gm_1 + gm_2 > gm_3:
                 q = self.coeff
 
                 if q * gm_3 <= gm_1 and (1 - q) * gm_3 <= gm_2:
@@ -175,9 +185,11 @@ class intersection:
                     if q * gm_3 > gm_1:
                         gm_2 = (1 - q) * gm_3
 
+            # Conservation costraint.
             gm_3 = gm_1 + gm_2
 
             # Boundary densities.
+            # Takes the compatible boundary density.
             sol_1_b = invFlux(gm_1)[1]
             sol_2_b = invFlux(gm_2)[1]
             sol_3_b = invFlux(gm_3)[0]
@@ -213,9 +225,13 @@ def networkSolver(
     # Numerical solution.
     time, tStep = np.linspace(timeRange[0], timeRange[1], tSteps, retstep=True)
     solution = np.zeros((tSteps, sSteps, len(roads)))
-
-    # Loads starting conditions.
+    
+    # Checks.
     for j in range(len(roads)):
+        # CFL on every road.
+        assert maxDerivative * tStep / roads[j].sStep < 1
+
+        # Loads starting conditions.
         solution[0, :, j] = roads[j].solution
 
     counter = timer()
@@ -231,6 +247,7 @@ def networkSolver(
 
         # Sets boundary densities.
         for inter in intersections:
+            # Gets boundaries.
             boundaries = inter.getBoundaries()
 
             if inter.family == "1x2":
@@ -247,11 +264,10 @@ def networkSolver(
 
         # Evolves roads.
         for k in range(len(roads)):
-            # CFL on every road.
-            assert maxDerivative * tStep / roads[k].sStep < 1
-
+            # Roads extended accordingly to intersections.
             downSolution, upSolution = roads[k].extend()
 
+            # Numerical solution by Godunov's numerical flux.
             solution[j, :, k] = solution[j - 1, :, k] - tStep / roads[k].sStep * (
                 godunov(solution[j - 1, :, k], upSolution[1:])
                 - godunov(downSolution[:-1], solution[j - 1, :, k])
@@ -306,6 +322,7 @@ flux = parabolicFlux
 fluxPrime = parabolicFluxPrime
 invFlux = invParabolicFlux
 
+# Flux parameters.
 sigma = 0.5
 maxDerivative = 1
 
@@ -325,11 +342,11 @@ J3 = intersection("J3", [I3, I4], [I6], 0.6)
 # Starting conditions.
 I1.startingCondition(lambda x: 0.75 * (x >= 1.5))
 
-# Roads and intersections lists.
+# Roads and intersections lists for networkSolver.
 roads = [I1, I2, I3, I4, I5, I6]
 intersections = [J1, J2, J3]
 
-# Numerical solution.
+# Numerical solution evaluation.
 start = timer()
 solution, time = networkSolver(roads, intersections, [0, 5])
 stop = timer() - start
@@ -342,48 +359,48 @@ fig, ax = plt.subplots(2, 3)
 
 plots = [None] * 6
 
-h = 0
-k = 0
+for k in range(2):
+    for h in range(3):
+        # Road index.
+        j = h + k + 2 * (k > 0)
 
-for j in range(len(roads)):
-    (plots[j],) = ax[k, h].plot(roads[j].space, solution[0, :, j])
+        # Lines.
+        (plots[j],) = ax[k, h].plot(roads[j].space, solution[0, :, j])
 
-    ax[k, h].set_title("Road {}".format(j + 1))
+        # Titles.
+        ax[k, h].set_title("Road {}".format(j + 1))
 
-    ax[k, h].set_xticks(roads[j].span)
+        # Ticks on x.
+        ax[k, h].set_xticks(roads[j].span)
 
-    ax[k, h].set_xlim(roads[j].span[0] - 0.1, roads[j].span[1] + 0.1)
-    ax[k, h].set_ylim(-0.1, 1.1)
+        # Plot limits.
+        ax[k, h].set_xlim(roads[j].span[0] - 0.1, roads[j].span[1] + 0.1)
+        ax[k, h].set_ylim(-0.1, 1.1)
 
-    k += 1
-
-    if k == 2:
-        k = 0
-        h += 1
-
-# Final output.
+# Parameters.
 print("\nParameters.\n")
-
 print("\tTime steps: {}".format(tSteps))
 print("\tSpace steps: {}".format(sSteps))
 
+# Roads.
 print("\nRoads.\n")
-
 for rd in roads:
     print("\t{}: {}".format(rd, rd.span))
 
+# Intersections.
 print("\nIntersections.\n")
-
 for inter in intersections:
     print("\t{}".format(inter))
 
+# Time taken for the numerical solution.
 print("\nTime taken: {:.2f}s".format((stop)))
 
+# Computes the animation.
 ani = animation.FuncAnimation(
     fig, animate, interval=1000 // 60, frames=range(1, tSteps, tSteps // 300)
 )
 
-# Saves the animation.
+# Saves the animation if requested.
 try:
     if "save" in sys.argv:
         ani.save("858798_4_gif.gif", fps=60)
