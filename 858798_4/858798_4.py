@@ -355,23 +355,23 @@ sigma = 0.5
 maxDerivative = 1
 
 # Roads.
-I1 = road("R1", [0, 2])
-I2 = road("R2", [2, 3])
-I3 = road("R3", [2, 4])
-I4 = road("R4", [3, 4])
-I5 = road("R5", [3, 6])
-I6 = road("R6", [4, 6])
+R1 = road("R1", [0, 2])
+R2 = road("R2", [2, 3])
+R3 = road("R3", [2, 4])
+R4 = road("R4", [3, 4])
+R5 = road("R5", [3, 6])
+R6 = road("R6", [4, 6])
 
 # Intersection.
-J1 = intersection("J1", [I1], [I2, I3], 0.5)
-J2 = intersection("J2", [I2], [I4, I5], 0.4)
-J3 = intersection("J3", [I3, I4], [I6], 0.6)
+J1 = intersection("J1", [R1], [R2, R3], 0.5)
+J2 = intersection("J2", [R2], [R4, R5], 0.4)
+J3 = intersection("J3", [R3, R4], [R6], 0.6)
 
 # Starting conditions.
-I1.startingCondition(lambda x: 0.75 * (x >= 1.5))
+R1.startingCondition(lambda x: 0.75 * (x >= 1.5))
 
 # Roads and intersections lists for networkSolver.
-roads = [I1, I2, I3, I4, I5, I6]
+roads = [R1, R2, R3, R4, R5, R6]
 intersections = [J1, J2, J3]
 
 # Numerical solution evaluation.
