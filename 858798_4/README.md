@@ -4,12 +4,14 @@ Simulazione di una semplice rete stradale tramite metodo a volume finito.
 
 Rete stradale composta dalle seguenti strade:
 
-- **R1**
+- **R1**[^1]
 - **R2**
 - **R3**
 - **R4**
 - **R5**
 - **R6**
+
+[^1]: Cambio di nomenclatura rispetto alla consegna originale.
 
 e dai seguenti incroci:
 
@@ -75,8 +77,8 @@ Time taken: 448.79s
 
 ### Output animato
 
-[Output animato](./858798_4_gif.gif) con impostazioni di esempio.[^1]
+[Output animato](./858798_4_gif.gif) con impostazioni di esempio.[^2]
 
-[^1]: Quando salvata, la gif non presenta i tick sull'asse y.
+[^2]: Quando salvata, la gif non presenta i *ticks* sull'asse y.
 
 ![Test result](./858798_4_gif.gif)
