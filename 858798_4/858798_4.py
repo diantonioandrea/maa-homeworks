@@ -11,8 +11,9 @@ automaticamente l'output animato in una GIF.
 
 Impostazioni da riga di comando:
 
-- short: ignora l'output animato.
-- long: aumenta la precisione del test.
+- silent: ignora l'output animato.
+- short: diminuisce la precisione del test => test più rapido.
+- long: aumenta la precisione del test => test più lento.
 - save: salva in una GIF l'output animato.
 """
 
@@ -22,14 +23,13 @@ print("Andrea Di Antonio, 858798.\n")
 # LIBRARIES
 
 
-from typing import Iterable, Callable
-from time import time as timer
-import numpy as np
 import sys
+from time import time as timer
+from typing import Callable, Iterable
 
-import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-
+import matplotlib.pyplot as plt
+import numpy as np
 
 # CLASSES
 
@@ -146,14 +146,11 @@ class intersection:
         if self.family == "1x2":
             # Densities on the roads.
             # Inbound.
-            road_1 = self.inbound[0]
-            sol_1 = road_1.solution
+            sol_1 = self.inbound[0].solution
 
             # Outbound.
-            road_2 = self.outbound[0]
-            road_3 = self.outbound[1]
-            sol_2 = road_2.solution
-            sol_3 = road_3.solution
+            sol_2 = self.outbound[0].solution
+            sol_3 = self.outbound[1].solution
 
             # Evaluates "gamma_max_j" for every road.
             # Note that the algorithm still uses the name gm_j even though
@@ -163,7 +160,7 @@ class intersection:
             gm_2 = flux(sigma) if sol_2[0] <= sigma else flux(sol_2[0])
             gm_3 = flux(sigma) if sol_3[0] <= sigma else flux(sol_3[0])
 
-            # Preference rule applies.
+            # Preference rule always applies.
             alpha = self.coeff
             gm_1 = min({gm_1, gm_2 / alpha, gm_3 / (1 - alpha)})
 
@@ -172,7 +169,7 @@ class intersection:
             gm_3 = (1 - alpha) * gm_1
 
             # Boundary densities.
-            # Takes the compatible boundary density.
+            # Takes the compatible boundary densities.
             sol_1_b = invFlux(gm_1)[1]
             sol_2_b = invFlux(gm_2)[0]
             sol_3_b = invFlux(gm_3)[0]
@@ -180,14 +177,11 @@ class intersection:
         elif self.family == "2x1":
             # Densities on the roads.
             # Inbound.
-            road_1 = self.inbound[0]
-            road_2 = self.inbound[1]
-            sol_1 = road_1.solution
-            sol_2 = road_2.solution
+            sol_1 = self.inbound[0].solution
+            sol_2 = self.inbound[1].solution
 
             # Outbound.
-            road_3 = self.outbound[0]
-            sol_3 = road_3.solution
+            sol_3 = self.outbound[0].solution
 
             # Evaluates "gamma_max_j" for every road.
             gm_1 = flux(sigma) if sol_1[-1] >= sigma else flux(sol_1[-1])
@@ -214,12 +208,12 @@ class intersection:
             gm_3 = gm_1 + gm_2
 
             # Boundary densities.
-            # Takes the compatible boundary density.
+            # Takes the compatible boundary densities.
             sol_1_b = invFlux(gm_1)[1]
             sol_2_b = invFlux(gm_2)[1]
             sol_3_b = invFlux(gm_3)[0]
 
-        # Returns boundary densities.
+        # Returns boundary densities at the intersection.
         return sol_1_b, sol_2_b, sol_3_b
 
 
@@ -296,8 +290,8 @@ def networkSolver(
 
             # Numerical solution by Godunov's numerical flux.
             solution[j, :, k] = solution[j - 1, :, k] - tStep / roads[k].sStep * (
-                godunov(solution[j - 1, :, k], upSolution[1:])
-                - godunov(downSolution[:-1], solution[j - 1, :, k])
+                gdn(solution[j - 1, :, k], upSolution[1:])
+                - gdn(downSolution[:-1], solution[j - 1, :, k])
             )
 
             # Updates roads for next extension.
@@ -307,8 +301,8 @@ def networkSolver(
     return solution, time
 
 
-# Numerical flux.
-def godunov(x: float, y: float) -> float:  # Works with numpy.array.
+# Godunov's numerical flux.
+def gdn(x: float, y: float) -> float:  # Works with numpy.array.
     return (
         (x == y) * flux(x)
         + (x < y) * ((flux(x) > flux(y)) * flux(y) + (flux(x) <= flux(y)) * flux(x))
@@ -332,7 +326,7 @@ def parabolicFluxPrime(x: float) -> float:  # Works with numpy.array.
 
 
 # Inverse parabolic flux.
-def invParabolicFlux(y: float) -> tuple[float]:
+def invParabolicFlux(y: float) -> tuple[float]:  # Works with numpy.array.
     return 0.5 * (1 - np.sqrt(1 - 4 * y)), 0.5 * (1 + np.sqrt(1 - 4 * y))
 
 
@@ -342,8 +336,9 @@ def invParabolicFlux(y: float) -> tuple[float]:
 
 # Simulation data.
 # Slightly longer and more precise simulation on "long" as a parameter.
-tSteps = 10**4 * (10 if "long" in sys.argv else 1)
-sSteps = 10**3 * (10 if "long" in sys.argv else 1)
+argv = sys.argv
+tSteps = 10**4 * (10 if "long" in argv else 1) // (10 if "short" in argv else 1)
+sSteps = 10**3 * (10 if "long" in argv else 1) // (10 if "short" in argv else 1)
 
 # Flux data.
 flux = parabolicFlux
@@ -355,6 +350,8 @@ sigma = 0.5
 maxDerivative = 1
 
 # Roads.
+# There can be an arbitrary number of roads and
+# (1x2, 2x1) intersections connecting them.
 R1 = road("R1", [0, 2])
 R2 = road("R2", [2, 3])
 R3 = road("R3", [2, 4])
@@ -407,7 +404,7 @@ print("\nTime taken: {:.2f}s".format((stop)))
 
 # The code which follows is designed to work with 6 roads, due to the homework requests,
 # although the algorithm itself can accept an arbitrary number of roads and intersections.
-if len(roads) != 6 or "short" in sys.argv:
+if len(roads) != 6 or "silent" in argv:
     sys.exit(0)
 
 fig, ax = plt.subplots(2, 3)
