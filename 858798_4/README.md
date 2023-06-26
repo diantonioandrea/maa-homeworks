@@ -28,10 +28,11 @@ e dai seguenti incroci:
 ## Algoritmo
 
 Il codice usa il flusso numerico di Godunov per la valutazione della soluzione numerica su varie strade connesse da incroci.  
-Le condizioni al bordo sono valutate a ogni ciclo temporale e aggiornate.
+A ogni ciclo temporale l'algoritmo aggiorna le condizioni al bordo per i vari incroci presenti e estende le soluzioni numeriche su ogni strada per simulare le intersezioni.
 
-Le classi che gestiscono gli incroci richiedono che le strade entranti terminino alla stessa cordinata spaziale e lo stesso vale per le strade uscenti.  
-Questo non è cruciale per il funzionamento dell'algoritmo.
+Le classi che gestiscono gli incroci richiedono che le strade entranti terminino alla stessa cordinata spaziale e lo stesso vale per le strade uscenti.
+Inoltre, la coordinata spaziale terminale delle strade entranti deve coincidere con la coordinata spaziale iniziale delle strade uscenti.  
+Questo non è cruciale per il funzionamento dell'algoritmo, ma rappresenta una mera scelta stilistica.
 
 ## Output di esempio
 
@@ -41,7 +42,9 @@ Test eseguito su CPU Apple M2.
 
 [Output testuale](./858798_4_output.txt) (ridotto) con impostazioni di esempio.
 
-Riproducibile tramite `python 858798_4.py long`
+Riproducibile tramite `python 858798_4.py long`[^2]
+
+[^2]: L'opzione `long` aumenta notevolmente il tempo di esecuzione.
 
 ```
 Andrea Di Antonio, 858798.
@@ -77,8 +80,8 @@ Time taken: 448.79s
 
 ### Output animato
 
-[Output animato](./858798_4_gif.gif) con impostazioni di esempio.[^2]
+[Output animato](./858798_4_gif.gif) con impostazioni di esempio[^3].
 
-[^2]: Quando salvata, la gif non presenta i *ticks* sull'asse y.
+[^3]: Quando salvata, la gif non presenta i *ticks* sull'asse y.
 
 ![Test result](./858798_4_gif.gif)

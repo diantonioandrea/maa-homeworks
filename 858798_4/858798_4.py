@@ -12,8 +12,8 @@ automaticamente l'output animato in una GIF.
 Impostazioni da riga di comando:
 
 - silent: ignora l'output animato.
-- short: diminuisce la precisione del test => test più rapido.
-- long: aumenta la precisione del test => test più lento.
+- short: diminuisce la precisione del test, ne consegue un test più rapido.
+- long: aumenta la precisione del test, ne consegue un test più lento.
 - save: salva in una GIF l'output animato.
 """
 
