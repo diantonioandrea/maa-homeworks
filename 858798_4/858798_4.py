@@ -1,20 +1,20 @@
 """
 Metodi di Analisi Applicata.
 Andrea Di Antonio, 858798.
-Consegna 4.
-Versione 1.
+Assignment 4.
+Version 1.
 
-Per la descrizione del codice si veda il file README.md
+For code description, refer to the README.md file.
 
-Chiamare il programma con 'python 858798_4.py save' per salvare 
-automaticamente l'output animato in una GIF.
+Call the program with 'python 858798_4.py save' to automatically save
+the animated output as a GIF.
 
-Impostazioni da riga di comando:
+Command-line settings:
 
-- silent: ignora l'output animato.
-- short: diminuisce la precisione del test, ne consegue un test più rapido.
-- long: aumenta la precisione del test, ne consegue un test più lento.
-- save: salva in una GIF l'output animato.
+- silent: ignores the animated output.
+- short: decreases the test precision, resulting in a faster test.
+- long: increases the test precision, resulting in a slower test.
+- save: saves the animated output as a GIF.
 """
 
 print("Andrea Di Antonio, 858798.\n")

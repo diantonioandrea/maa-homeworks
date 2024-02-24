@@ -1,10 +1,10 @@
 """
 Metodi di Analisi Applicata.
 Andrea Di Antonio, 858798.
-Consegna 3.
-Versione 2.
+Assignment 3.
+Version 2.
 
-Per la descrizione del codice si veda il file README.md
+For code description, refer to the README.md file.
 """
 
 print("Andrea Di Antonio, 858798.")
