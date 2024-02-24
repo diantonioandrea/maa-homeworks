@@ -1,8 +1,8 @@
 # Metodi di Analisi Applicata, 858798_4
 
-Simulazione di una semplice rete stradale tramite metodo a volume finito.
+Simulation of a simple road network using the finite volume method.
 
-Rete stradale composta dalle seguenti strade:
+Road network composed of the following roads:
 
 - **R1**[^1]
 - **R2**
@@ -11,40 +11,40 @@ Rete stradale composta dalle seguenti strade:
 - **R5**
 - **R6**
 
-[^1]: Cambio di nomenclatura rispetto alla consegna originale.
+[^1]: Renamed compared to the original assignment.
 
-e dai seguenti incroci:
+and the following intersections:
 
-- **J1**: incrocio *1x2*
-	- Strada entrante: **R1**
-	- Strade uscenti: **R2**, **R3**
-- **J2**: incrocio *1x2*
-	- Strada entrante: **R2**
-	- Strade uscenti: **R4**, **R5**
-- **J3**: incrocio *2x1*
-	- Strade entranti: **R3**, **R4**
-	- Strada uscente: **R6**
+- **J1**: intersection *1x2*
+    - Incoming road: **R1**
+    - Outgoing roads: **R2**, **R3**
+- **J2**: intersection *1x2*
+    - Incoming road: **R2**
+    - Outgoing roads: **R4**, **R5**
+- **J3**: intersection *2x1*
+    - Incoming roads: **R3**, **R4**
+    - Outgoing road: **R6**
 
-## Algoritmo
+## Algorithm
 
-Il codice usa il flusso numerico di Godunov per la valutazione della soluzione numerica su varie strade connesse da incroci.  
-A ogni ciclo temporale l'algoritmo aggiorna le condizioni al bordo per i vari incroci presenti e estende le soluzioni numeriche su ogni strada per simulare le intersezioni.
+The code uses the Godunov numerical flux for evaluating the numerical solution on various roads connected by intersections.
+At each time step, the algorithm updates the boundary conditions for the various intersections present and extends the numerical solutions on each road to simulate the intersections.
 
-Le classi che gestiscono gli incroci richiedono che le strade entranti terminino alla stessa cordinata spaziale e lo stesso vale per le strade uscenti.
-Inoltre, la coordinata spaziale terminale delle strade entranti deve coincidere con la coordinata spaziale iniziale delle strade uscenti.  
-Questo non è cruciale per il funzionamento dell'algoritmo, ma rappresenta una mera scelta stilistica.
+The classes handling the intersections require that the incoming roads terminate at the same spatial coordinate, and the same goes for the outgoing roads.
+Additionally, the terminal spatial coordinate of the incoming roads must coincide with the initial spatial coordinate of the outgoing roads.
+This is not crucial for the functioning of the algorithm but represents a mere stylistic choice.
 
-## Output di esempio
+## Example Output
 
-Test eseguito su CPU Apple M2.
+Test executed on Apple M2 CPU.
 
-### Output testuale
+### Textual Output
 
-[Output testuale](./858798_4_output.txt) (ridotto) con impostazioni di esempio.
+[Textual Output](./858798_4_output.txt) (excerpt) with example settings.
 
-Riproducibile tramite `python 858798_4.py long`[^2]
+Reproducible via `python 858798_4.py long`[^2]
 
-[^2]: L'opzione `long` aumenta notevolmente il tempo di esecuzione.
+[^2]: The `long` option significantly increases execution time.
 
 ```
 Andrea Di Antonio, 858798.
@@ -57,31 +57,31 @@ Numerical solution [96000/100000 - 17.92s]
 
 Parameters.
 
-	Time steps: 100000
-	Space steps: 10000
+    Time steps: 100000
+    Space steps: 10000
 
 Roads.
 
-	R1: [0, 2]
-	R2: [2, 3]
-	R3: [2, 4]
-	R4: [3, 4]
-	R5: [3, 6]
-	R6: [4, 6]
+    R1: [0, 2]
+    R2: [2, 3]
+    R3: [2, 4]
+    R4: [3, 4]
+    R5: [3, 6]
+    R6: [4, 6]
 
 Intersections.
 
-	J1: [R1] -> [R2, R3] [0.50]
-	J2: [R2] -> [R4, R5] [0.40]
-	J3: [R3, R4] -> [R6] [0.60]
+    J1: [R1] -> [R2, R3] [0.50]
+    J2: [R2] -> [R4, R5] [0.40]
+    J3: [R3, R4] -> [R6] [0.60]
 
 Time taken: 448.79s
 ```
 
-### Output animato
+### Animated Output
 
-[Output animato](./858798_4_gif.gif) con impostazioni di esempio[^3].
+[Animated Output](./858798_4_gif.gif) with example settings[^3].
 
-[^3]: Quando salvata, la gif non presenta i *ticks* sull'asse y.
+[^3]: When saved, the gif does not display y-axis ticks.
 
 ![Test result](./858798_4_gif.gif)

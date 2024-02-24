@@ -1,32 +1,32 @@
 """
 Metodi di Analisi Applicata.
 Andrea Di Antonio, 858798.
-Consegna 2.
-Versione 2.
+Assignment 2.
+Version 2.
 
-Simulazione del secondo modello "Follow The Leader" in presenza di un numero arbitrario di semafori.
+Simulation of the second "Follow The Leader" model in the presence of an arbitrary number of traffic lights.
 
-La soluzione del sistema di ODE avviene tramite metodo RK4.
-Il sistema viene risolto per intero piuttosto che agire su ogni coppia di equazioni singolarmente.
+The solution of the system of ODEs is done using the RK4 method.
+The system is solved as a whole rather than acting on each pair of equations individually.
 
-Prima della simulazione si valutano i segmenti di strada delimitati dai semafori, per i quali verranno poi identificati i leaders.
+Before the simulation, the road segments delimited by the traffic lights are evaluated, for which the leaders will then be identified.
 
-La dinamica delle automobili viene inizializzata nel seguente modo: il vettore posizione-velocità viene costruito come [x1, ..., xN, v1, ..., vN], in modo tale da avere un campo vettoriale pari a [v1, ..., vN, V'(x(j+1) - xj)(v(j+1) - vj) + (V(x(j+1) - xj) - vj)/t, ..., (Vinf - vN)/t], dove "t" rappresenta il tempo di reazione, "Vinf" la velocità limite, "V()" la velocità ottimale dipendente dalla distanza tra le automobili e "V'()" la sua derivata prima, equivalentemente alla consegna 1.
-In assenza di semafori o in presenza di semaforo verde questa dinamica viene preservata.
+The dynamics of the cars are initialized as follows: the position-velocity vector is constructed as [x1, ..., xN, v1, ..., vN], in order to have a vector field equal to [v1, ..., vN, V'(x(j+1) - xj)(v(j+1) - vj) + (V(x(j+1) - xj) - vj)/t, ..., (Vinf - vN)/t], where "t" represents the reaction time, "Vinf" the limit speed, "V()" the optimal speed depending on the distance between cars and "V'()" its derivative, equivalently to assignment 1.
+In the absence of traffic lights or in the presence of a green light, this dynamics is preserved.
 
-In presenza di semaforo giallo o rosso si aggiorna la dinamica dei leaders in funzione delle quattro casistiche a seconda della loro distanza e posizione*:
-i**) x(t_g) + v(t_g)(t_y) >= l: Il leader attraversa il semaforo prima che "scatti il rosso" senza modificare la sua dinamica.
-ii) x(t_g) + v(t_g)(t_y) <= l, x(t_g) + v(t_g)(t_y t_r) >= l: Il leader, procedendo a velocità costante, riesce ad attraversare il semaforo dopo lo scattare del verde senza rallentare; in questo caso viene mantenuta velocità costante.
-iii***) x(t_g) + v(t_g)(t_y) <= l, x(t_g) + v(t_g)(t_y t_r) <= l, x(t_g) + v(t_g)(t_y t_r)/2 <= l: Il leader è costretto a rallentare e fermarsi prima che "scatti il verde"; in questo caso la dinamica corrisponde a: v' = -v(t_g)^2 / (l - x(t_g)) assumendo t_g <= t <= t_g + 2(l - x(t_g)) / v(t_g), in caso contrario v' = 0.
-iv***) x(t_g) + v(t_g)(t_y) <= l, x(t_g) + v(t_g)(t_y t_r) <= l, x(t_g) + v(t_g)(t_y t_r)/2 >= l: Il leader è costretto a rallentare ma non a fermarsi in modo tale da superare il semaforo con velocità in generale non nulla nel momento in cui "scatta il verde"; in questo caso la dinamica corrisponde a: v' = -2(x(t_g) + v(t_g)(t_y + t_r) - l) / (t_y + t_r)^2.
+In the presence of a yellow or red light, the dynamics of the leaders are updated based on the four cases depending on their distance and position*:
+i**) x(t_g) + v(t_g)(t_y) >= l: The leader crosses the light before it turns red without changing its dynamics.
+ii) x(t_g) + v(t_g)(t_y) <= l, x(t_g) + v(t_g)(t_y t_r) >= l: The leader, proceeding at constant speed, manages to cross the light after it turns green without slowing down; in this case, the speed is kept constant.
+iii***) x(t_g) + v(t_g)(t_y) <= l, x(t_g) + v(t_g)(t_y t_r) <= l, x(t_g) + v(t_g)(t_y t_r)/2 <= l: The leader is forced to slow down and stop before the light turns green; in this case, the dynamics correspond to: v' = -v(t_g)^2 / (l - x(t_g)) assuming t_g <= t <= t_g + 2(l - x(t_g)) / v(t_g), otherwise v' = 0.
+iv***) x(t_g) + v(t_g)(t_y) <= l, x(t_g) + v(t_g)(t_y t_r) <= l, x(t_g) + v(t_g)(t_y t_r)/2 >= l: The leader is forced to slow down but not to stop in order to pass the light with a generally non-zero velocity when it turns green; in this case, the dynamics correspond to: v' = -2(x(t_g) + v(t_g)(t_y + t_r) - l) / (t_y + t_r)^2.
 
-*: Posizione e velocità delle auto a t_g viene determinata tramite interpolazione delle traiettorie per una maggiore precisione.
-**: In questo caso la dinamica semaforica si applica al primo veicolo in posizione inferiore a quella del leader tale per cui sia rispettata una condizione dalla numero 2 alla 4.  
-***: Per evitare problemi dovuti alla discretizzazione del modello tramite calcolatore si introduce una correzione in modo tale che le automobili non superino il semaforo. Tramite la flag "physics" questa correzione è pari al massimo tra la correzione standard, di ordine pari allo step dell'algoritmo utilizzato (RK4) e mezza lunghezza delle automobili, come nel caso reale.
+*: Position and velocity of the cars at t_g are determined by interpolating the trajectories for greater precision.
+**: In this case, the traffic light dynamics apply to the first vehicle in a position lower than that of the leader such that condition 2 to 4 is met.  
+***: To avoid problems due to the discretization of the model by computer calculation, a correction is introduced so that the cars do not pass the traffic light. Through the "physics" flag, this correction is equal to the maximum between the standard correction, of order equal to the step of the algorithm used (RK4), and half the length of the cars, as in the real case.
 
-Alla fine della simulazione vengono visualizzate le traiettorie della posizione delle auto, insieme alle posizioni dei semafori, e della velocità rispetto al tempo.
+At the end of the simulation, the trajectories of the car positions, together with the positions of the traffic lights, and the velocity over time are displayed.
 
-I valori impostati di default (carsNumber, carsLength, infSpeed, reactionTime, endingTime, lightsNumber, lightsDistances, green, yellow, red) rappresentano solo un esempio e possono essere modificati.
+The default values set (carsNumber, carsLength, infSpeed, reactionTime, endingTime, lightsNumber, lightsDistances, green, yellow, red) represent only an example and can be modified.
 """
 
 from time import time as timer

@@ -1,18 +1,16 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-# Metodi di Analisi Applicata
+# Metodi di Analisi Matematica
 
-Codici[^1] per le consegne del corso [**Metodi di Analisi Applicata**](https://elearning.unimib.it/course/info.php?id=44785).
+Codes for assignments of the **Metodi di Analisi Matematica**[^1] course at **UniMiB**.
 
-[^1]: Per facilitare la lettura dei codici ho deciso di usare [**black**](https://github.com/psf/black).
+[^1]: Applied Analysis Methods.
 
-## Consegne presenti
+## Available Assignments
 
-- [Consegna 1](./858798_1.py)
-- [Consegna 2](./858798_2.py)
-- [Consegna 3](./858798_3/858798_3.py)
-	- [Descrizione](./858798_3/README.md)[^2]
-- [Consegna 4](./858798_4/858798_4.py)
-	- [Descrizione](./858798_4/README.md)[^2]
-
-[^2]: Descrizione non presente all'interno del file del codice sorgente.
+- [Assignment 1](./858798_1.py)
+- [Assignment 2](./858798_2.py)
+- [Assignment 3](./858798_3/858798_3.py)
+	- [Description](./858798_3/README.md)
+- [Assignment 4](./858798_4/858798_4.py)
+	- [Description](./858798_4/README.md)

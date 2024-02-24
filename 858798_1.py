@@ -1,16 +1,16 @@
 """
 Metodi di Analisi Applicata.
 Andrea Di Antonio, 858798.
-Consegna 1.
+Assignment 1.
 
-Simulazione del secondo modello "Follow The Leader".
+Simulation of the second "Follow The Leader" model.
 
-La soluzione del sistema di ODE avviene tramite metodo di Eulero.
-Il sistema viene risolto per intero piuttosto che agire su ogni coppia di equazioni singolarmente.
-Il vettore posizione velocità viene costruito come [x1, ..., xN, v1, ..., vN], in modo tale da avere un campo vettoriale pari a [v1, ..., vN, V'(x(j+1) - xj)(v(j+1) - vj) + (V(x(j+1) - xj) - vj)/t, ..., (Vinf - vN)/t], dove "t" rappresenta il tempo di reazione, "Vinf" la velocità limite, "V()" la velocità ottimale dipendente dalla distanza tra le automobili e "V'()" la sua derivata prima.
-Alla fine della simulazione vengono visualizzate le traiettorie della posizione delle auto e della velocità rispetto al tempo.
+The solution of the system of ODEs is done using the Euler method.
+The system is solved as a whole rather than acting on each pair of equations individually.
+The position-velocity vector is constructed as [x1, ..., xN, v1, ..., vN], in order to have a vector field equal to [v1, ..., vN, V'(x(j+1) - xj)(v(j+1) - vj) + (V(x(j+1) - xj) - vj)/t, ..., (Vinf - vN)/t], where "t" represents the reaction time, "Vinf" the limit speed, "V()" the optimal speed depending on the distance between cars and "V'()" its derivative.
+At the end of the simulation, the trajectories of the car positions and velocities over time are displayed.
 
-I valori impostati di default (carsNumber, carsLength, infSpeed, reactionTime, endingTime) rappresentano solo un esempio e possono essere modificati.
+The default values set (carsNumber, carsLength, infSpeed, reactionTime, endingTime) represent only an example and can be modified.
 """
 
 import numpy as np

@@ -1,37 +1,32 @@
 # Metodi di Analisi Applicata, 858798_3
 
-Confronto della soluzione numerica per due problemi di conservazione tramite flussi
-numerici di Lax-Friedrichs (LF) e Godunov (G).
+Comparison of the numerical solution for two conservation problems using Lax-Friedrichs (LF) and Godunov (G) numerical fluxes.
 
-I test eseguiti da questo codice sono divisi in due sezioni.
+The tests executed by this code are divided into two sections.
 
-### Sezione 1.
+### Section 1.
 
-Confronto numerico dei flussi numerici di Godunov e Lax-Friedrichs.
+Numerical comparison of Godunov and Lax-Friedrichs numerical fluxes.
 
-I test della sezione 1 consistono nella valutazione della soluzione numerica,
-usando flussi numerici di Lax-Friedrichs e Godunov, per diversi valori di 
-∆t e ∆x e la valutazione della distanza, in norma L1, con la soluzione analitica.
+The tests in section 1 consist of evaluating the numerical solution, using Lax-Friedrichs and Godunov numerical fluxes, for different values of ∆t and ∆x and evaluating the distance, in L1 norm, to the analytical solution.
 
-### Sezione 2.
+### Section 2.
 
-Valutazione della variazione totale delle soluzioni.
+Evaluation of the total variation of the solutions.
 
-I test della sezione 2 consistono nella valutazione, fissati ∆t e ∆x, della
-variazione totale delle tre soluzioni (LF, G, Analitica) a tempi diversi con
-annesso confronto grafico.
+The tests in section 2 consist of evaluating, with fixed ∆t and ∆x, the total variation of the three solutions (LF, G, Analytical) at different times with accompanying graphical comparison.
 
-## Conclusioni
+## Conclusions
 
-Dai test si evince, sia numericamente che qualitativamente, la superiorità del flusso numerico di Godunov.
+From the tests, both numerically and qualitatively, the superiority of the Godunov numerical flux is evident.
 
-## Test di esempio
+## Sample Test
 
-Test eseguito su CPU Apple M2.
+Test executed on Apple M2 CPU.
 
-### Output testuale
+### Text Output
 
-[Output testuale](./858798_3_output.txt) del test di esempio.
+[Textual Output](./858798_3_output.txt) of the sample test.
 
 ```
 Andrea Di Antonio, 858798.
@@ -106,11 +101,10 @@ Time	Analytical 2	Lax-Friedrichs	Godunov
 Final results have been plotted.
 
 Time taken: 141.89 second(s).
-
 ```
 
-### Output grafico
+### Graphical Output
 
-[Output grafico](./858798_3_image.png) del test di esempio.
+[Graphical Output](./858798_3_image.png) of the sample test.
 
 ![Test result](./858798_3_image.png)
